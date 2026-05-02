@@ -1,0 +1,4 @@
+interface:
+  display_name: "nook WeChat Writer"
+  short_description: "Write and review Chinese WeChat articles."
+  default_prompt: "Use $nook-wechat-writer to draft a WeChat article."
