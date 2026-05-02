@@ -1,0 +1,13 @@
+.env
+*.log
+__pycache__/
+*.pyc
+node_modules/
+.tmp/
+tmp/
+.agent/tmp/
+generated/
+*.png
+*.jpg
+*.jpeg
+*.webp
