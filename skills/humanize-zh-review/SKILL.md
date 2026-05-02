@@ -1,56 +1,72 @@
----
-name: humanize-zh-review
-description: Review Chinese drafts to reduce generic AI writing patterns and restore concrete judgment.
-trigger: 审校、降AI味、优化文风、润色公众号初稿、humanize Chinese draft
----
+# 中文人工感审校
 
-# Humanize Chinese Review
+当用户需要检查中文稿件是否自然、是否有 AI 味、是否像真人公众号文章时，使用这个 skill。
 
-## Goal
+## 核心定位
 
-Turn a generic, complete-looking draft into a clearer, more responsible article.
+这个 skill 不是普通校对。它的重点是判断一篇中文文章有没有真实作者感。
 
-This skill does not merely replace words. It checks whether each paragraph has evidence, judgment, rhythm, and a reason to exist.
+它负责：
 
-## Review Passes
+- 降低 AI 味。
+- 删除空话。
+- 强化具体判断。
+- 检查语气是否自然。
+- 检查文章是否真的有信息增量。
 
-### Pass 1: Remove Generic AI Patterns
+## 审校原则
 
-Watch for:
+优先看这些问题：
 
-- empty grand statements
-- formulaic transitions
-- vague significance claims
-- overuse of "not only... but also..."
-- three-point list habits
-- over-explaining obvious context
-- fake balance without real judgment
+- 这句话是不是人会这么说？
+- 这一段有没有真实信息？
+- 这篇文章有没有作者自己的判断？
+- 有没有过度顺滑但空泛的段落？
+- 有没有明显模板句？
+- 有没有只总结不表达的结尾？
 
-### Pass 2: Restore Concrete Meaning
+## 常见 AI 味
 
-Ask:
+需要警惕：
 
-- What fact supports this sentence?
-- What observation does this judgment come from?
-- Does this paragraph move the reader forward?
-- Can this abstract claim become a concrete example?
-- Is this sentence merely smooth, or does it actually say something?
+- “在当今快速发展的时代……”
+- “这不仅是……更是……”
+- “从某种意义上说……”
+- “值得我们深思……”
+- “无论如何……”
+- “最终，真正重要的是……”
+- 一段里连续出现很多抽象名词。
+- 每个小节都用同一种句式收束。
 
-### Pass 3: Keep Author Judgment
+## 修改方法
 
-Ask:
+修改时优先：
 
-- Which claims truly belong to the author?
-- Which claims are borrowed and should be attributed?
-- Which polished sentences are empty?
-- Which sections should be deleted rather than rewritten?
+- 把抽象话改成具体话。
+- 把泛泛判断改成明确判断。
+- 删除没有信息量的总结句。
+- 保留作者的口语节奏。
+- 让段落之间有真实推进。
 
-## Output
+不要把文章改得过度工整。
 
-Return:
+## 输出方式
 
-1. The revised draft.
-2. A concise change summary.
-3. A review note explaining major removals or judgment changes.
+如果用户要直接改稿，可以输出修改后的稿件。
 
-Keep Markdown structure unless the structure itself is part of the problem.
+如果用户要审校意见，可以按这个结构：
+
+```text
+整体判断：
+主要问题：
+建议修改：
+需要保留的优点：
+```
+
+## 边界
+
+不要为了“去 AI 味”故意加入错别字。
+
+不要把所有句子改得很口语。
+
+不要把作者原本清晰的判断改成更安全、更圆滑、更无聊的表达。

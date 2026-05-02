@@ -1,19 +1,71 @@
-# Release Checklist
+# 发布检查清单
 
-Before publishing a new skill:
+这份清单用于检查一篇公众号稿件是否可以进入公众号后台。
 
-- [ ] Skill has a `SKILL.md` file.
-- [ ] Frontmatter includes `name`, `description`, and `trigger`.
-- [ ] No local absolute paths are committed.
-- [ ] No credentials or tokens are committed.
-- [ ] Private examples are replaced with generic examples.
-- [ ] Related docs are updated.
-- [ ] README mentions the new workflow.
-- [ ] Scripts have safe defaults.
+## 稿件结构
 
-For WeChat workflows:
+- 是否有 YAML。
+- YAML 中是否有 `title`。
+- YAML 中是否有 `summary`。
+- 正文是否已经套用公众号模板。
+- 是否有关注引导。
+- 是否有固定头图。
+- 是否有字数预告。
+- 是否有正文。
+- 是否有尾部引导。
+- 是否有固定尾图。
 
-- [ ] Template image URLs are placeholders or intentionally public.
-- [ ] WeChat AppID/AppSecret are not committed.
-- [ ] Manual title and summary field behavior is documented.
-- [ ] Image upload limitations are documented.
+推荐顺序：
+
+```text
+关注引导 -> 固定头图 -> 字数预告 -> 导语块 -> 正文 -> 固定尾部引导 -> 固定尾图
+```
+
+## 标题和摘要
+
+- 标题是否像公众号标题，而不是文件名。
+- 标题是否承载文章判断。
+- 封面短标题是否足够短。
+- 摘要是否来自 YAML `summary`。
+- 摘要是否没有误用“点击蓝字，关注……”之类模板开头。
+
+注意：复制正文到公众号后台时，标题通常不会自动带入，摘要也可能被后台抓取正文开头。发布前必须手动检查。
+
+## 图片
+
+- 所有图片是否为公网 URL。
+- 图片是否能在未登录状态下打开。
+- 头图是否正确。
+- 尾图是否正确。
+- 每期插图是否必要。
+- 是否存在本地图片路径。
+- 是否存在临时文件名或过大的图片。
+
+## 正文
+
+- 是否有明确核心判断。
+- 是否有具体例子。
+- 是否避免空泛总结。
+- 是否不像 AI 模板文。
+- 是否没有过度解释。
+- 是否没有明显事实错误。
+- 是否没有未授权引用。
+
+## 安全
+
+- 是否包含 AppSecret。
+- 是否包含 token。
+- 是否包含 API key。
+- 是否包含本地绝对路径。
+- 是否包含私人图床管理地址。
+- 是否包含不该公开的个人信息。
+
+## 粘贴到公众号后台后
+
+- 标题是否手动填写。
+- 摘要是否手动填写。
+- 图片是否显示。
+- 排版是否正常。
+- 头图和尾图位置是否正确。
+- 手机预览是否正常。
+- 保存草稿或发布前是否再次预览。
