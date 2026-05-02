@@ -1,91 +1,97 @@
----
-name: wechat-article-writing
-description: End-to-end workflow for writing Chinese WeChat Official Account articles from ideas, notes, transcripts, or source material.
-trigger: 写公众号文章、公众号稿、改成公众号、整理成公众号、WeChat article writing
----
+# 公众号文章写作
 
-# WeChat Article Writing
+当用户要写公众号文章、整理素材成公众号长文、扩写公众号稿、续写公众号稿时，使用这个 skill。
 
-## Default Workflow
+## 核心定位
 
-Use this skill whenever the user asks for a WeChat Official Account article.
+这个 skill 负责公众号文章的主流程：判断是否值得写、怎么写、写到什么程度、是否需要插图，以及写完后进入标题、审校和发布流程。
 
-Hard defaults:
+## 基本原则
 
-- Start with value selection: who the article helps, why readers care, and what they can take away.
-- Do not start drafting until the topic angle is clear.
-- Build the structure before writing.
-- Review the draft in multiple passes.
-- Ask whether images are needed after the draft is reviewed.
-- Do not generate images by default.
-- Use the current WeChat article template for final Obsidian/Markdown delivery.
+- 先判断价值，再开始写。
+- 不为了完成任务而硬写。
+- 不把资料复述当文章。
+- 不把 AI 的正确废话当正文。
+- 每篇文章都要有一个清晰的核心判断。
+- 每篇文章都要对读者有明确收益。
+- 出图是可选动作，不是默认动作。
 
-## Article Value
+## 开始写之前
 
-Before drafting, answer:
+先确认：
 
-- What reader problem does this article solve?
-- What new information, new judgment, or better explanation does it provide?
-- What should the reader be able to do, understand, or judge after reading?
+- 这篇文章写给谁？
+- 读者看完能得到什么？
+- 文章要解决什么问题？
+- 核心判断是什么？
+- 这个选题适合公众号长文吗？
+- 有没有必要插图？
 
-If the answer is vague, keep refining the topic.
+如果信息不够，可以先向用户追问。问题要少而关键。
 
-## Drafting Rules
+## 写作流程
 
-- Keep the publish title in YAML `title`, not in the body.
-- Use the intro block to hook the reader into the problem.
-- Keep headings short.
-- Avoid fake scenes, fake conversations, and invented reader messages.
-- Avoid generic AI filler such as "本质上", "底层逻辑", "值得注意的是", "一方面...另一方面", "综上所述".
-- Prefer paragraphs that advance the argument.
-- Delete material that only proves research effort but does not help the reader understand.
+推荐步骤：
 
-## Review
+1. 提炼选题价值。
+2. 明确文章核心判断。
+3. 搭建正文结构。
+4. 写正文。
+5. 检查是否需要插图。
+6. 如果需要插图，再调用用户指定的出图流程。
+7. 调用标题 skill。
+8. 调用审校 skill。
+9. 调用发布 skill 套模板。
 
-Run a review pass equivalent to `humanize-zh-review`.
+## 正文要求
 
-The review must check:
+正文应该：
 
-- factual support
-- paragraph function
-- judgment ownership
-- AI-ish phrasing
-- title/body separation
-- final YAML quality
+- 像一个具体的人在说话。
+- 有判断、有例子、有层次。
+- 避免空泛概括。
+- 避免段落之间只有逻辑连接，没有真实内容。
+- 适合中文公众号阅读。
 
-## Optional Images
+正文不应该：
 
-After the reviewed draft is ready, ask:
+- 过度使用“首先、其次、最后”。
+- 每段都像总结报告。
+- 用很多抽象词堆叠。
+- 只给结论不给理由。
+- 为了完整而写没有必要的段落。
 
-```text
-这篇文章是否需要插图？可以选择：不配图 / 只要封面图 / 正文插图 / 信息图。
-```
+## 插图规则
 
-Only after confirmation should image generation or illustration planning happen.
+写完正文或确定结构后，要提醒用户是否需要插图。
 
-If an external image skill is used, pass only necessary context:
-
-- final article text
-- article topic
-- target reader
-- desired image type
-- style and size requirements
-
-Do not merge the full image skill text into this skill.
-
-## Final Delivery
-
-Final Markdown should follow this order:
+可以这样问：
 
 ```text
-follow prompt -> fixed header image -> word count notice -> intro block -> body -> fixed closing prompt -> fixed footer image
+这篇文章可以不配图。如果你希望增强阅读节奏，我建议配 2-4 张插图。需要我调用出图流程吗？
 ```
 
-Use `templates/wechat-article-template.md` as the baseline.
+只有用户确认需要插图时，才进入出图流程。
 
-Manual WeChat publishing reminder:
+插图应该服务正文，不要只做装饰。
 
-- copy rendered body from the preview/editor
-- manually fill WeChat title from YAML `title`
-- manually fill WeChat summary from YAML `summary`
-- verify images after pasting
+## 输出要求
+
+最终稿件应尽量包含：
+
+- YAML 信息。
+- 公众号标题或标题候选。
+- 摘要。
+- 正文。
+- 图片占位或图片链接。
+- 是否已套模板的说明。
+
+不要把标题、摘要和正文混在一起导致发布时难以复制。
+
+## 与其他 skills 的关系
+
+- 标题交给 `wechat-title-writing`。
+- 审校交给 `humanize-zh-review`。
+- 模板和发布检查交给 `wechat-article-publishing`。
+
+这个 skill 是主流程，不应该把所有子流程都写死在自己里面。

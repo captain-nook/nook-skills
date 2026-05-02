@@ -1,58 +1,151 @@
-# WeChat Article Workflow
+# 公众号工作流
 
-This workflow separates writing, formatting, image handling, and final publishing.
+这份文档说明一篇公众号文章从想法到发布的推荐流程。
 
-## Writing
-
-Use `skills/wechat-article-writing/SKILL.md`.
-
-Default flow:
-
-1. Define article value.
-2. Choose topic direction.
-3. Select material.
-4. Build structure.
-5. Draft.
-6. Review in multiple passes.
-7. Ask whether images are needed.
-8. Apply the WeChat article template.
-
-## Publishing
-
-Use `skills/wechat-article-publishing/SKILL.md`.
-
-The final article structure is:
+## 总流程
 
 ```text
-follow prompt -> fixed header image -> word count notice -> intro block -> body -> fixed closing prompt -> fixed footer image
+选题判断
+-> 写作
+-> 标题
+-> 审校
+-> 是否出图
+-> 图片上传
+-> 套模板
+-> 渲染
+-> 粘贴到公众号后台
+-> 手动检查标题摘要
+-> 预览
+-> 保存草稿或发布
 ```
 
-## Manual WeChat Editor Rule
+## 第一步：选题判断
 
-When copying rendered content into the WeChat editor:
+不要一上来就写。
 
-- Body text, inline styles, and image links usually paste correctly.
-- The title field is separate. Copy YAML `title` manually.
-- The summary field is separate. Copy YAML `summary` manually.
-- If the summary is not filled manually, WeChat may auto-extract the first visible text from the body, such as "点击蓝字，关注...".
+先判断：
 
-## Recommended YAML
+- 这篇文章为什么值得写？
+- 它帮读者解决什么问题？
+- 它有没有一个明确判断？
+- 它是不是只是把已有信息重新说一遍？
+- 它适合公众号长文，还是更适合短内容？
 
-```yaml
----
-title:
-summary:
-tags: []
-topic:
-status: draft
-created:
-format: article
-platform: 微信公众号
-publish-date:
-cover:
-source:
-relation:
-derivative_type: original
-image-auto-upload: true
----
+如果选题不成立，应该先调整选题，而不是硬写正文。
+
+## 第二步：写正文
+
+正文应该围绕一个核心判断展开。
+
+推荐结构：
+
+- 一个具体入口。
+- 一个明确判断。
+- 几层解释。
+- 具体例子。
+- 对读者的启发。
+- 收束。
+
+不要写成：
+
+- 空泛的行业观察。
+- 只有正确废话的总结。
+- 段落很顺但没有真实判断的 AI 文。
+
+## 第三步：标题
+
+标题和正文分开处理。
+
+标题要回答：
+
+- 读者为什么点开？
+- 标题是否准确承载正文？
+- 是否过度标题党？
+- 是否适合公众号后台展示？
+- 封面短标题能不能在图上看清？
+
+## 第四步：审校
+
+审校重点不是只查错别字，而是判断文章是否像真人写的。
+
+要检查：
+
+- 语言是否过度平滑。
+- 是否有明显 AI 套话。
+- 是否每段都有信息增量。
+- 是否有作者自己的判断。
+- 是否有可删掉的空话。
+
+## 第五步：是否需要出图
+
+出图不是刚性条件。
+
+只有这些情况才建议出图：
+
+- 文章里有抽象概念，需要图帮助理解。
+- 文章需要视觉节奏。
+- 文章要做封面或插图。
+- 文章中某个段落适合用图表达。
+
+如果文章本身不需要图，不要为了“看起来完整”而强行配图。
+
+## 第六步：图片上传
+
+图片必须尽量变成公网 URL。
+
+推荐：
+
+```text
+AI 出图或本地图片 -> 图床 -> Markdown 图片 URL
 ```
+
+## 第七步：套模板
+
+模板推荐顺序：
+
+```text
+关注引导
+固定头图
+字数预告
+导语块
+正文
+固定尾部引导
+固定尾图
+```
+
+字数预告可以写成：
+
+```text
+本文约 3000 字，预计阅读 8 分钟。
+```
+
+这类内容可以放进模板，但每篇文章生成后要重新计算。
+
+## 第八步：渲染和粘贴
+
+推荐用 Obsidian 中的公众号排版插件渲染，例如 WeChat Converter。
+
+粘贴到公众号后台后要注意：
+
+- 正文通常可以带入。
+- 图片如果是公网 URL，通常可以显示。
+- 标题通常不会自动带入。
+- 摘要可能会被后台自动抓取正文开头。
+
+所以必须手动填写：
+
+- 公众号标题。
+- 公众号摘要。
+
+## 第九步：预览
+
+发布前至少看一遍手机预览。
+
+重点检查：
+
+- 标题是否合适。
+- 摘要是否合适。
+- 图片是否显示。
+- 头图、尾图是否正确。
+- 正文有没有断裂。
+- 排版有没有异常空行。

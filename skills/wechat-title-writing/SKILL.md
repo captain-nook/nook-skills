@@ -1,33 +1,83 @@
----
-name: wechat-title-writing
-description: Write searchable, clickable Chinese WeChat Official Account article titles.
-trigger: 写公众号标题、优化标题、生成发布标题、title for WeChat article
----
+# 公众号标题写作
 
-# WeChat Title Writing
+当用户需要公众号标题、封面短标题、YAML 标题、摘要或标题候选时，使用这个 skill。
 
-## Core Rules
+## 核心定位
 
-1. Put the final title outside the article body, usually in YAML `title`.
-2. Aim for around 30 Chinese characters when possible.
-3. Include searchable terms that readers may actually use.
-4. Make the title specific enough to promise a clear value.
-5. Do not repeat the title as an H1 inside the article body.
+标题不是正文的装饰，而是文章判断的入口。
 
-## Title Patterns
+这个 skill 负责：
 
-Use one of these patterns when appropriate:
+- 公众号后台标题。
+- 封面短标题。
+- YAML `title`。
+- YAML `summary`。
+- 标题候选。
 
-- Pain point + counterintuitive insight
-- Reader identity + concrete benefit
-- Common mistake + consequence + better path
-- Situation + tension + unanswered question
-- Tool/concept + real use case + judgment
+## 标题原则
 
-## Checklist
+好的公众号标题应该：
 
-- Is the title close to 30 characters?
-- Does it contain at least one searchable keyword?
-- Does it imply a concrete reader benefit?
-- Does it avoid empty exaggeration?
-- Is it stored in YAML `title` instead of the body?
+- 让读者知道为什么要点开。
+- 准确承载正文核心判断。
+- 有张力，但不欺骗。
+- 不靠夸张标点制造情绪。
+- 不像 AI 生成的泛标题。
+- 适合中文公众号环境。
+
+不推荐：
+
+- “关于……的几点思考”
+- “深度解析……”
+- “一文看懂……”
+- “……的底层逻辑”
+- “……到底意味着什么”
+
+这些标题不是绝对不能用，但很容易变成模板化表达。
+
+## 输出格式
+
+推荐输出：
+
+```yaml
+title: "公众号后台标题"
+summary: "适合手动填入公众号摘要的 1-2 句话。"
+cover_title: "封面短标题"
+```
+
+然后再给 3-5 个备选标题。
+
+## 封面短标题
+
+封面短标题要短，适合放在封面图上。
+
+常见长度：
+
+- 2 字
+- 4 字
+- 6 字以内
+
+如果用户明确要“四字标题”，优先给四字候选。
+
+## 摘要规则
+
+摘要应该概括文章判断，不要复制模板开头。
+
+不要把这些内容当摘要：
+
+- 点击蓝字，关注……
+- 本文约多少字……
+- 欢迎来到……
+- 固定模板文案。
+
+摘要要能独立出现在公众号后台摘要框里。
+
+## 检查问题
+
+生成标题后要自检：
+
+- 是否过度标题党？
+- 是否准确？
+- 是否有点击理由？
+- 是否不像通用 AI 标题？
+- 是否适合目标读者？

@@ -1,20 +1,77 @@
-# Open Source Notes
+# 开源说明
 
-These skills were extracted from a real WeChat article production workflow.
+这个仓库面向公开使用，因此不能绑定某个作者的私人环境。
 
-Before publishing or reusing them:
+## 开源前必须移除
 
-- Replace personal brand names.
-- Replace template image URLs.
-- Remove private article examples.
-- Keep API keys and image-bed credentials outside the repository.
-- Treat WeChat AppID/AppSecret as local configuration only.
-- Document any required Obsidian plugins separately instead of committing plugin settings.
+- 私人公众号名称。
+- 私人头图、尾图、二维码真实链接。
+- 本地绝对路径。
+- 访问密钥。
+- AppID / AppSecret。
+- access_token。
+- 私人图床域名。
+- 未授权图片。
+- 个人联系方式。
 
-## Suggested Future Additions
+可以保留示例占位符，例如：
 
-- Transcript-to-article skills
-- Interview cleaning skills
-- Multi-platform rewrite skills
-- Article-to-website publishing skills
-- Draft synchronization helpers for WeChat official accounts
+```text
+你的公众号名称
+https://你的图床域名/path/header.jpg
+```
+
+## README 必须讲清楚
+
+README 应该让一个陌生用户知道：
+
+- 这套 skills 是什么。
+- 它不是什么。
+- 需要安装哪些第三方工具。
+- 哪些工具是必需，哪些是推荐，哪些是可选。
+- 怎么把模板改成自己的。
+- 图片为什么要上传图床。
+- 自动同步公众号草稿箱为什么不是默认能力。
+- 发布时标题和摘要为什么要手动检查。
+
+## 不要制造误解
+
+不要让使用者误以为：
+
+- 安装这个仓库就能自动发布公众号。
+- 不配置图床也能稳定粘贴图片。
+- YAML 摘要会自动进入公众号后台。
+- 使用者不需要替换模板图片。
+- 微信公众号接口不需要 IP 白名单。
+
+## 推荐对外描述
+
+可以这样介绍：
+
+> 这是一套中文公众号写作与发布流程 skills，适合用 Markdown 或 Obsidian 写公众号的人。它把选题判断、正文写作、标题生成、人工感审校、模板套用、图片图床处理和发布前检查串成一套流程。
+
+## 使用者需要自己准备
+
+- 自己的公众号名称。
+- 自己的固定头图和尾图。
+- 自己的关注引导文案。
+- 自己的图床。
+- 自己的标题偏好。
+- 自己的内容边界。
+
+## 自动发布的边界
+
+如果有人要自动同步公众号草稿箱，请明确告诉他：这不是默认流程。
+
+自动同步需要额外解决：
+
+- 微信公众号开发者权限。
+- AppID / AppSecret。
+- IP 白名单。
+- token 刷新。
+- 图片素材上传。
+- 草稿箱 API。
+- 失败重试。
+- 敏感信息保存。
+
+这些内容可以后续单独做一个进阶 skill，但不应该混进基础版。

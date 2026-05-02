@@ -1,102 +1,151 @@
----
-name: wechat-article-publishing
-description: Format Markdown drafts into WeChat-ready article drafts with fixed template blocks, image rules, and manual publishing checks.
-trigger: 发布公众号、公众号排版、套公众号模板、复制到公众号、WeChat publishing
----
+# 公众号发布流程
 
-# WeChat Article Publishing
+当用户需要套用公众号模板、检查发布格式、处理图片、准备复制到公众号后台时，使用这个 skill。
 
-## Responsibility
+## 核心定位
 
-This skill formats a finished Markdown draft for WeChat publishing. It does not rewrite the article body unless the user asks.
+这个 skill 负责把已经写好的文章变成可以进入公众号后台的稿件。
 
-## Required Structure
+它不负责自动发布，也不默认同步草稿箱。
 
-Use this order:
+## 模板顺序
+
+推荐公众号正文顺序：
 
 ```text
-follow prompt -> fixed header image -> word count notice -> intro block -> body -> fixed closing prompt -> fixed footer image
+关注引导
+固定头图
+字数预告
+导语块
+正文
+固定尾部引导
+固定尾图
 ```
 
-The fixed blocks should use WeChat-compatible inline HTML styles. Do not rely on external CSS.
+其中：
+
+- 关注引导放在头图前面。
+- 固定头图放在正文前。
+- 字数预告放在头图后。
+- 尾部引导放在尾图前。
+- 尾部引导每期可以固定，不必每篇单独改。
 
 ## YAML
 
-Recommended frontmatter:
+稿件开头建议保留 YAML：
 
 ```yaml
 ---
-title:
-summary:
-tags: []
-topic:
+title: ""
+summary: ""
+cover_title: ""
 status: draft
-created:
-format: article
-platform: 微信公众号
-publish-date:
-cover:
-source:
-relation:
-derivative_type: original
-image-auto-upload: true
 ---
 ```
 
-## Manual WeChat Editor Rule
+YAML 用于稿件管理和 Agent 流程，不代表公众号后台会自动读取。
 
-Rendered body copy/paste usually carries:
+发布时要手动把 `title` 和 `summary` 填入公众号后台。
 
-- body text
-- inline styles
-- images
+## 字数预告
 
-It usually does not carry:
+字数预告可以放在模板里，但每篇文章生成后需要重新计算。
 
-- title field
-- summary field
-
-Before publishing:
-
-- copy YAML `title` to the WeChat title field
-- copy YAML `summary` to the WeChat summary field
-- verify the cover image
-- verify all body images
-
-If the summary field is not filled manually, WeChat may extract the first visible body text, such as the follow prompt.
-
-## Image Handling
-
-For fixed images:
-
-- put header and footer image URLs in the article template
-- replace placeholder URLs with your own public image URLs
-
-For per-article images:
-
-- use standard Markdown image syntax
-- use stable image-bed URLs when possible
-- check rendered preview before copying
-
-## PicGo/PicList Upload Note
-
-If PicGo cannot read images in non-ASCII paths, stage the files in an ASCII-only temporary directory before uploading.
-
-This repository includes:
+示例：
 
 ```text
-scripts/upload_wechat_images.ps1
+本文约 3200 字，预计阅读 8 分钟。
 ```
 
-The script uploads through a PicGo/PicList-compatible local endpoint.
+阅读时间可按每分钟 350-450 个中文字粗略估算。
 
-## Draft Sync
+## 图片规则
 
-One-click sync to WeChat drafts may require:
+公众号发布稿中的图片应尽量使用公网 URL。
 
-- WeChat AppID
-- WeChat AppSecret
-- IP whitelist or proxy setup
-- a compatible Markdown-to-WeChat sync tool
+推荐：
 
-Do not commit these credentials.
+```markdown
+![图片说明](https://你的图床域名/path/image.jpg)
+```
+
+发布稿中不要保留：
+
+```markdown
+![[image.png]]
+```
+
+也不要保留本地绝对路径。
+
+## 固定图
+
+固定图包括：
+
+- 头图。
+- 尾图。
+- 二维码。
+
+这些图建议上传到图床后写进模板。
+
+## 每期插图
+
+每期插图按需使用。
+
+检查标准：
+
+- 是否真的帮助理解文章。
+- 是否放在对应段落附近。
+- 是否已经上传图床。
+- 是否有简洁说明。
+
+## 粘贴到公众号后台
+
+推荐流程：
+
+1. 用公众号排版插件渲染 Markdown。
+2. 复制渲染后的正文。
+3. 粘贴到公众号后台编辑器。
+4. 手动填写标题。
+5. 手动填写摘要。
+6. 检查图片。
+7. 预览。
+8. 保存草稿或发布。
+
+注意：
+
+- 标题通常不会自动带入。
+- 摘要可能会自动抓取正文开头，因此要手动改。
+- 如果正文开头是“点击蓝字，关注……”，它可能会被误抓成摘要。
+
+## 发布前检查
+
+必须检查：
+
+- YAML 是否完整。
+- 标题是否准备好。
+- 摘要是否准备好。
+- 模板顺序是否正确。
+- 关注引导是否在头图前。
+- 头图是否存在。
+- 字数预告是否存在。
+- 尾部引导是否存在。
+- 尾图是否存在。
+- 图片是否为公网 URL。
+- 是否没有本地路径。
+- 是否没有密钥或私人链接。
+
+## 自动草稿箱同步
+
+本 skill 默认不做自动同步。
+
+如果用户明确要求自动同步，需要提醒：
+
+- 需要微信公众号开发者配置。
+- 需要 AppID 和 AppSecret。
+- 需要 IP 白名单。
+- 需要处理 access_token。
+- 需要上传图片素材。
+- 需要调用草稿箱 API。
+- 稳定性取决于微信接口和部署环境。
+
+如果用户只是要稳定发布，优先推荐手动粘贴流程。

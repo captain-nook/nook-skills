@@ -1,39 +1,53 @@
-# Contributing
+# 贡献说明
 
-Contributions are welcome.
+欢迎改进 Nook Skills。这个仓库的目标是沉淀一套面向中文公众号写作者的可复用 Agent 工作流。
 
-## Skill Format
+## 贡献方向
 
-Each skill should live under:
+优先欢迎这些改进：
 
-```text
-skills/<skill-name>/SKILL.md
-```
+- 更清晰的公众号写作流程。
+- 更好的标题生成规则。
+- 更有效的中文审校规则。
+- 更稳妥的图片图床工作流。
+- 更完整的 Obsidian / Markdown 模板说明。
+- 更适合开源使用者的配置文档。
 
-Use frontmatter:
+## 内容原则
 
-```yaml
----
-name:
-description:
-trigger:
----
-```
+提交内容时，请尽量遵守：
 
-## Documentation
+- 面向中文公众号写作者，说明文字尽量使用中文。
+- 不绑定某个私人公众号名称。
+- 不提交真实密钥、token、AppSecret、访问凭证。
+- 不提交本地绝对路径。
+- 不提交私人图床链接。
+- 不把自动发布当成默认能力。
+- 所有第三方工具都要说明“是否必需”和“承担什么环节”。
 
-If a skill depends on external tools, add a document under `docs/`.
+## 修改 skill 时的建议
 
-## Safety
+每个 `SKILL.md` 都应该做到：
 
-Do not commit:
+- 触发场景明确。
+- 输入和输出明确。
+- 边界明确。
+- 不依赖某个用户的私人环境。
+- 可以被别人复制后自行定制。
 
-- API keys
-- OAuth secrets
-- WeChat AppSecret
-- image-bed credentials
-- private QR codes
-- unpublished article drafts
-- local absolute paths
+如果你新增一个 skill，请同时更新 README 中的目录结构和分工说明。
 
-Use placeholders and setup instructions instead.
+## 发布前检查
+
+提交前建议检查：
+
+- 是否仍有英文说明文字。
+- 是否有本地路径。
+- 是否有私人名称。
+- 是否有密钥或 token。
+- README 是否能让一个陌生用户照着做。
+- 模板是否不含私人图片链接。
+
+## 风格
+
+请写得像给真实写作者看的说明书，不要写成只给程序员看的接口文档。
