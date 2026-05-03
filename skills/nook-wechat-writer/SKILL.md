@@ -3,7 +3,7 @@ name: nook-wechat-writer
 description: Write, revise, and review Chinese WeChat official-account articles using the nook content-production method. Use when the user asks to write a 公众号文章, produce a long-form Chinese article, turn materials into an article, refine an article draft, remove AI flavor from a WeChat article, design an article angle, or build a publishable article from notes, research, transcripts, links, or rough ideas.
 ---
 
-# nook-wechat-writer
+# 1 nook-wechat-writer
 
 Use this skill to produce Chinese WeChat official-account articles with a clear reader value, real judgment, natural paragraph prose, and layered review.
 
@@ -11,9 +11,9 @@ The skill is not a prompt-template generator. It is a writing workflow: clarify 
 
 **Constraint-based generation**: This skill uses mandatory checkpoints and explicit prohibition rules (L0) to ensure output quality. Models must verify compliance with L0 rules before presenting any draft. This approach treats critical formatting and language rules as hard constraints, not suggestions.
 
-## Core Rules
+## 1.1 Core Rules
 
-### L0: Absolute Prohibitions (Never Break)
+### 1.1.1 L0: Absolute Prohibitions (Never Break)
 
 These rules are mandatory for all outputs. Any violation = draft rejected. Check before every output.
 
@@ -37,7 +37,7 @@ These rules are mandatory for all outputs. Any violation = draft rejected. Check
 - No abstract method discussions without at least 2-3 concrete first-hand details.
 - No prescriptive/teaching-tone endings (e.g. "下次你应该..." or "不妨先问自己..."). Prefer endings that回环 to the intro question, offer an open reflection, or share the author's current thinking without instructing the reader.
 
-### L1: Core Rules
+### 1.1.2 L1: Core Rules
 
 - Do not start writing immediately unless the user explicitly asks for a direct draft.
 - First identify the article's main value: what should the reader understand, judge, or do differently after reading?
@@ -47,7 +47,7 @@ These rules are mandatory for all outputs. Any violation = draft rejected. Check
 - Avoid habitual AI phrasing, especially empty transitions, excessive "not X but Y", and parallel-question scaffolding.
 - Put `summary` in YAML frontmatter. Body must start with one blockquote intro paragraph, followed by one blank line.
 - Publishable AI-channel articles must include publishing metadata in YAML: `publish_title`, `publish_summary`, `publish_description`, `publish_tags`, and `delivery_links`.
-- `publish_title` should usually target about 30 Chinese characters when possible, balancing curiosity, search terms, and clarity. The 30-character target maximizes search keyword coverage: more characters = more opportunities for readers to find the article through different search terms. A good title must be immediately understandable at first glance—readers should grasp the problem or value within 2 seconds. Title principles: (1) Stand in the reader's shoes and show tangible benefits or value, not abstract concepts like "从完整到准确" or "判断权回到你手里". (2) Dig into real pain points: feeling unnoticed, struggling to improve quality, wanting to monetize but unable to build an IP. (3) Include concrete, relatable problems or questions (avoid abstract concepts like "分水岭"). (4) Include hot keywords related to the topic (tool names, concepts, platforms like AI, 公众号, 写作). (5) Show clear value or outcome (what readers will learn or be able to do). (6) Include specific deliverable if applicable (e.g., "四个动作", "三个方法"). (7) Quantify when possible, but avoid over-promising or clickbait (e.g., "月入过万" is too vulgar). Find the balance: specific benefits without exaggeration. (8) Focus on the author's own methodology and value, not on riding the coattails of research subjects (e.g., avoid "研究花叔和卡兹克" in titles).
+- `publish_title` should usually target about 30 Chinese characters when possible, balancing curiosity, search terms, and clarity. The 30-character target maximizes search keyword coverage: more characters = more opportunities for readers to find the article through different search terms. A good title must be immediately understandable at first glance—readers should grasp the problem or value within 2 seconds. Title principles: (1) Stand in the reader's shoes and show tangible benefits or value, not abstract concepts like "从完整到准确" or "判断权回到你手里". (2) Dig into real pain points: feeling unnoticed, struggling to improve quality, wanting to monetize but unable to build an IP. (3) Include concrete, relatable problems or questions (avoid abstract concepts like "分水岭" or "边界"). (4) Include hot keywords related to the topic (tool names, concepts, platforms like AI, 公众号, 写作). (5) Show clear value or outcome (what readers will learn or be able to do). (6) Include specific deliverable if applicable (e.g., "四个动作", "三个方法"). (7) Quantify when possible, but avoid over-promising or clickbait (e.g., "月入过万" is too vulgar). Find the balance: specific benefits without exaggeration. (8) Focus on the author's own methodology and value, not on riding the coattails of research subjects (e.g., avoid "研究花叔和卡兹克" in titles). (9) Use concrete, perceivable contrasts to create impact (e.g., "以前4小时，现在10分钟" or "想要3句话，AI写2000字"). Numbers and time comparisons are powerful. (10) Use colloquial, everyday language instead of abstract or formal concepts. Replace abstract terms with expressions people actually say: "不出活儿" instead of "缺少边界", "白忙活" instead of "效率低下", "听不懂人话" instead of "理解偏差". (11) Avoid grand narratives; focus on specific, relatable scenarios. "写总结" is better than "使用AI工具".
 - Draft `publish_title` early, before final polish. Do not wait until publication to think about the title; the title should help test the article's reader value, keywords, curiosity, and search surface during drafting.
 - `publish_summary` must be under 100 Chinese characters, create curiosity without spoiling the whole article, and avoid clickbait.
 - `publish_tags` must include core promotion/search keywords for the topic, such as tool names, workflow names, and concept keywords.
@@ -62,10 +62,20 @@ These rules are mandatory for all outputs. Any violation = draft rejected. Check
 - When the user asks for publishable AI-channel article work, the user's own article database is mandatory reference, not optional inspiration.
 - Final delivery must state which database pieces were consulted and what style/process rules were extracted. If the database was not consulted, state why.
 - Every publishable article must include at least 2-3 concrete first-hand details: a specific experience, a real tool interaction, a particular failure, or an actual editing decision the author made. Abstract method discussions without personal anchors are not publishable.
+- Avoid repetitive examples that demonstrate the same pattern. If using multiple examples, ensure each shows a different dimension or aspect. Do not use similar metaphors or scenarios multiple times (e.g., "收拾房间" and "收拾桌子" are redundant).
+- Do not dump full prompt text or detailed prompt versions into the article body. Describe the effect or contrast instead. Readers care about outcomes, not verbatim prompts.
+- Avoid framing technology evolution as personal habit change. Instead of "以前我用AI的习惯是...现在我发现...", frame it as "前两年的技术...现在的模型...". Attribute changes to technology advancement, not user behavior shifts.
+- Check logical relationships in arguments carefully. Avoid oversimplified linear claims like "越X越Y" unless the relationship is genuinely linear. Consider whether the relationship is actually multidimensional or conditional.
+- Verify that metaphors and golden sentences have internal logical consistency. Avoid mixing incompatible conceptual frameworks (e.g., architectural + mechanical metaphors without clear connection).
+- Use concrete, specific details over generic descriptions. Include actual tool names (Obsidian, Claude), framework names (PARA), realistic numbers ("1分钟" not "十几秒", "2000字" not "3000字"). Specific details make scenarios more real and relatable.
+- Use truly colloquial language, not just "avoid formal language". Use expressions people actually say in conversation: "秀肌肉" instead of "展示能力", "不是一码事" instead of "完全不一样". Read the text aloud - if it sounds like a person talking, it's right.
+- Watch for repetition at all levels: similar examples showing the same pattern, metaphors reused in different sections, points restated without adding new insight. Delete ruthlessly. One vivid example beats three similar ones.
+- Consider perspective shifts. Not every observation needs to come from "我". Sometimes "很多人开始意识到" is more effective than "我开始意识到". Vary the narrative voice to avoid self-centeredness.
+- Endings must offer something new - a forward-looking thought, an open question, or a shift in perspective. Do not just restate the main argument or recycle metaphors already used in the body. If the ending only summarizes, rewrite it.
 - Always do a sensitive-information pass before final delivery.
 - When preparing a version that may be shared publicly or open-sourced, remove private names, local absolute paths, internal folder names that are only meaningful in the user's vault, tokens, IDs, secrets, and any sensitive workflow details that would not make sense to strangers.
 
-## Execution Contract
+## 1.2 Execution Contract
 
 Use this fixed loop for publishable article work:
 
@@ -87,20 +97,21 @@ Use this fixed loop for publishable article work:
 6. Checkpoint: run three visible review passes.
    - Pass 1: facts, names, links, metadata, and sensitive information.
    - Pass 2: structure, intro, headings, paragraph flow, and support for each section.
-   - Pass 3: style, AI flavor, repeated parallelism, and final reading feel.
-7. Output: final `publish_title`, `publish_summary`, `publish_tags`, and `delivery_links`, plus a short review note describing what changed in each pass.
+   - Pass 3: style, AI flavor, repeated parallelism, and final reading feel. During this pass, you must load and execute `../nook-humanizer-zh-review/SKILL.md` as the anti-AI-flavor sub-review layer, then merge fixes with WeChat rules taking priority.
+7. Output: final `publish_title`, `publish_summary`, `publish_tags`, and `delivery_links`, plus a short review note describing what changed in each pass, including the Humanizer pass findings.
 8. Stop condition: if a blocking issue appears in any pass, fix the draft before moving on. Do not carry known problems into the final delivery.
 
-## Reference Loading
+## 1.3 Reference Loading
 
 Load references only as needed:
 
 - For any article task, read `references/nook-content-principles.md`.
 - For topic design, angle selection, or first drafts, read `references/wechat-production-workflow.md`.
 - For rewriting, final polish, formatting, or AI-flavor review, read `references/wechat-style-and-review.md`.
+- For any AI-flavor review, human-feel review, style review, or final polish pass, also read `../nook-humanizer-zh-review/SKILL.md`, `../nook-humanizer-zh-review/references/anti-ai-review-checklist.md`, and `../nook-humanizer-zh-review/references/wechat-adaptation.md`. This is a mandatory sub-review layer, not optional inspiration.
 - For open-source or public-release material, read `references/open-source-safety-and-attribution.md`.
 
-## Default Workflow
+## 1.4 Default Workflow
 
 1. Clarify the task and available materials.
 2. Consult the user's AI-channel article database and extract relevant style/process cues.
@@ -109,12 +120,12 @@ Load references only as needed:
 5. Build a lightweight structure that serves the main value.
 6. Write the article in natural Chinese prose.
 7. **Execute mandatory L0 check**: Before presenting the draft, verify all L0 absolute prohibitions (formatting, language, content). Fix any violations immediately.
-8. Review in three visible passes: hard facts, reader understanding, human judgment/style.
+8. Review in three visible passes: hard facts, reader understanding, human judgment/style. The third pass must include a visible `nook-humanizer-zh-review` sub-pass for AI flavor, fake smoothness, mechanical sentence patterns, and missing concrete anchors.
 9. Check source attribution and sensitive information.
 10. For real production drafts in the user's vault, save the Markdown artifact to the appropriate local content repository before summarizing it.
 11. Deliver the draft or revision in the format requested by the user, including database-reference notes and review notes.
 
-## Output Format
+## 1.5 Output Format
 
 For publishable WeChat drafts, default to:
 
@@ -141,7 +152,7 @@ If the user asks for planning only, output the angle, reader value, main structu
 
 If the user asks for review, prioritize findings and concrete revision advice before praise or summary.
 
-## Review Checklist
+## 1.6 Review Checklist
 
 - The article's main value is visible early.
 - Each section serves the main line.

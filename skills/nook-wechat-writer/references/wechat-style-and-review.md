@@ -221,6 +221,8 @@ intro 必须有足够承载量，但不要太长。不做字数硬性要求，�
 
 ## 8. AI 味黑名单
 
+本节是公众号自己的 AI 味边界。进入最终风格审校或去 AI 味审校时，还必须加载 `../nook-humanizer-zh-review/SKILL.md`、`../nook-humanizer-zh-review/references/anti-ai-review-checklist.md` 和 `../nook-humanizer-zh-review/references/wechat-adaptation.md` 做子审校。公众号格式、intro、标题和自然段规则优先；humanizer 只负责复检 AI 痕迹、假顺滑、机械句式和缺少具体锚点。
+
 以下表达高度警惕：
 
 - 综上所述。
@@ -530,6 +532,8 @@ intro 要尽量做到：
 - 方法论是否是正向表达，而不是一串反问。
 
 ### L3 人味
+
+L3 必须包含一次 `nook-humanizer-zh-review` 子审校。先按本文件检查公众号表达是否自然，再按 humanizer 清单检查 AI 套话、机械排比、假口语、空泛总结、模糊归因和缺少具体锚点。两者冲突时，以公众号成稿规则为上位规则。
 
 检查：
 

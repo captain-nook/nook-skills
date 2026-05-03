@@ -1,8 +1,8 @@
-# Nook Skills：中文公众号生产工作流
+# Nook Skills：中文内容生产工作流
 
-一套面向中文公众号写作者的 Agent Skills，提供可重复调用的内容生产方法。
+一套面向中文内容创作者的 Agent Skills，提供可重复调用的内容生产方法。
 
-从选题判断、正文写作、标题生成、人工感审校、模板套用、图片处理，到发布前检查，每个环节都有固定流程和质量标准。
+从选题判断、正文写作、逐字稿生产、标题生成、人工感审校、模板套用、图片处理，到发布前检查，每个环节都有固定流程和质量标准。
 
 如果你只是想让 AI 直接写一篇文章，这套 skills 可能显得有点“慢”。但如果你希望长期稳定地产出公众号文章，并且每篇文章都有一致的价值判断、标题风格、模板结构和发布检查，它会很适合你。
 
@@ -82,10 +82,17 @@
 
 你至少需要安装：
 
-- `wechat-article-writing`
-- `wechat-title-writing`
-- `humanize-zh-review`
-- `wechat-article-publishing`
+- `nook-wechat-writer`
+- `nook-humanizer-zh-review`
+
+其中 `nook-humanizer-zh-review` 是子审校 skill。公众号文章进入风格审校、去 AI 味、人味校验或 final polish 阶段时，`nook-wechat-writer` 会强制加载它做二次复检。
+
+如果你仍在使用旧版拆分 skills，可以把对应关系理解为：
+
+- `wechat-article-writing` -> `nook-wechat-writer`
+- `humanize-zh-review` -> `nook-humanizer-zh-review`
+
+逐字稿 skill 当前仍在草稿区，未来进入正式 `skills/` 后也应复用 `nook-humanizer-zh-review`。
 
 ### 2. 自定义公众号信息
 
@@ -221,9 +228,9 @@ PicGo / PicList -> Cloudflare R2 -> 自定义域名 -> Markdown 图片链接
 - 标题通常不会自动带入公众号后台。
 - 摘要可能会被公众号后台自动抓取正文开头，因此要手动改成 YAML `summary`。
 
-## 四个子 skills 分工
+## 当前 skills 分工
 
-### wechat-article-writing
+### nook-wechat-writer
 
 负责公众号文章主流程。它关心的是“这篇文章是否值得写、怎么写、写成什么样”。
 
@@ -235,7 +242,7 @@ PicGo / PicList -> Cloudflare R2 -> 自定义域名 -> Markdown 图片链接
 - 每篇文章都要有明确读者收益。
 - 出图是可选动作，需要时才调用。
 
-### wechat-title-writing
+### legacy: wechat-title-writing
 
 负责标题。它关心的是“读者为什么点开、标题是否承载文章判断”。
 
@@ -247,7 +254,7 @@ PicGo / PicList -> Cloudflare R2 -> 自定义域名 -> Markdown 图片链接
 - 封面短标题
 - 备选标题
 
-### humanize-zh-review
+### legacy: humanize-zh-review
 
 负责中文人工感审校。它关心的是“这篇文章是不是像一个具体的人写的”。
 
@@ -259,7 +266,28 @@ PicGo / PicList -> Cloudflare R2 -> 自定义域名 -> Markdown 图片链接
 - 是否缺少具体判断。
 - 是否有不属于作者的表达习惯。
 
-### wechat-article-publishing
+### nook-humanizer-zh-review
+
+负责中文人工感和去 AI 味子审校。它不决定文章选题、标题、结构或发布格式，只在父 skill 进入风格审校、去 AI 味、人味校验或 final polish 阶段时作为强制子审校层使用。
+
+重点检查：
+
+- AI 套话和助手腔。
+- 机械排比、假对比、三项凑整。
+- 空泛总结、口号化结尾和虚假升华。
+- 过度平滑、句长过于整齐、每段都像总结。
+- 缺少具体锚点、真实细节、明确来源或作者判断。
+- 假口语、戏剧化但不可信的案例。
+
+它参考并本地化整合了 `Humanizer-zh` 的去 AI 痕迹方法，第三方来源保留在 `third_party/Humanizer-zh`，归因说明见 `skills/nook-humanizer-zh-review/ATTRIBUTION.md`。
+
+调用边界：
+
+- 公众号文章：`nook-wechat-writer` 保持上位规则，控制 intro、标题、自然段、正文格式和发布元信息。
+- 逐字稿：`nook-video-transcript` 保持上位规则，控制可念性、气口、提词器格式和视频主线。
+- humanizer 只做 AI 痕迹复检和局部重写建议，不反客为主。
+
+### legacy: wechat-article-publishing
 
 负责发布前流程。它关心的是“这篇文章能否顺利进入公众号后台”。
 
@@ -301,27 +329,42 @@ PicGo / PicList -> Cloudflare R2 -> 自定义域名 -> Markdown 图片链接
 nook-skills/
   README.md
   CONTRIBUTING.md
-  docs/
-    image-workflow.md
-    open-source-notes.md
-    release-checklist.md
-    wechat-workflow.md
-  scripts/
-    upload_wechat_images.ps1
   skills/
-    humanize-zh-review/
+    nook-wechat-writer/
       SKILL.md
-    wechat-article-publishing/
+      references/
+        nook-content-principles.md
+        wechat-production-workflow.md
+        wechat-style-and-review.md
+        open-source-safety-and-attribution.md
+    nook-humanizer-zh-review/
       SKILL.md
-    wechat-article-writing/
+      ATTRIBUTION.md
+      references/
+        anti-ai-review-checklist.md
+        humanizer-zh-mapping.md
+        wechat-adaptation.md
+        video-adaptation.md
+  third_party/
+    Humanizer-zh/
+      README.md
       SKILL.md
-    wechat-title-writing/
-      SKILL.md
+      LICENSE
   templates/
     wechat-article-template.md
 ```
 
-## 自动同步草稿箱说明
+## 第三方来源与归因
+
+`nook-humanizer-zh-review` 的规则设计参考了 `Humanizer-zh` 的 AI 写作去痕思路。本仓库将原项目保留在：
+
+```text
+third_party/Humanizer-zh/
+```
+
+该目录用于保留来源、README、SKILL.md 和 MIT License。正式 nook skill 不把 Humanizer-zh 作为自身身份，而是把其中的检测维度蒸馏为 nook 场景可用的子审校规则。
+
+
 
 本仓库默认不启用自动同步草稿箱。
 
