@@ -12,10 +12,12 @@
 - 帮你把素材整理成适合公众号阅读的中文长文。
 - 帮你生成公众号标题、封面短标题和 YAML 标题字段。
 - 帮你做“像不像真人写”的审校，减少空话、套话、AI 味。
+- 帮你把卡兹克式活人感、花叔式流程感和自己的写作判断整合成可复用方法，而不是简单仿写某个人。
 - 帮你套用固定公众号模板：关注引导、头图、字数预告、正文、尾部引导、尾图。
 - 帮你判断是否需要插图，并把出图作为可选动作，而不是每次强行配图。
 - 帮你梳理图片进入公众号后台的流程：本地图片、图床链接、Markdown 图片、公众号渲染。
 - 帮你在发布前检查标题、摘要、图片、模板、正文结构是否完整。
+- 帮你在公众号、短视频和小红书标题之间做跨平台改写。
 
 ## 它不是什么
 
@@ -89,8 +91,11 @@
 
 如果你仍在使用旧版拆分 skills，可以把对应关系理解为：
 
-- `wechat-article-writing` -> `nook-wechat-writer`
-- `humanize-zh-review` -> `nook-humanizer-zh-review`
+- `公众号写作` / `wechat-article-writing` -> `nook-wechat-writer`
+- `标题写作` / `wechat-title-writing` -> `nook-wechat-writer` 的标题热词库与发布元信息流程
+- `审校_降AI味` / `humanize-zh-review` -> `nook-humanizer-zh-review`
+- `短视频写作` / `跨平台改写` -> `nook-wechat-writer/references/channel-adaptation.md`
+- `khazix-writer` -> 保留为卡兹克个人风格来源；nook 只吸收其中可迁移的方法，详见 `creator-source-patterns.md`
 
 逐字稿 skill 当前仍在草稿区，未来进入正式 `skills/` 后也应复用 `nook-humanizer-zh-review`。
 
@@ -334,6 +339,8 @@ nook-skills/
       SKILL.md
       references/
         nook-content-principles.md
+        creator-source-patterns.md
+        channel-adaptation.md
         wechat-production-workflow.md
         wechat-style-and-review.md
         open-source-safety-and-attribution.md
