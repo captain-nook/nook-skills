@@ -235,6 +235,8 @@ PicGo / PicList -> Cloudflare R2 -> 自定义域名 -> Markdown 图片链接
 
 ## 当前 skills 分工
 
+本仓库是 nook 的统一 skill 仓库。历史上单独维护的 `nook-card`、`nook-tv-cover` 等 skill，后续统一收敛到本仓库的 `skills/` 目录。
+
 ### nook-wechat-writer
 
 负责公众号文章主流程。它关心的是“这篇文章是否值得写、怎么写、写成什么样”。
@@ -292,6 +294,14 @@ PicGo / PicList -> Cloudflare R2 -> 自定义域名 -> Markdown 图片链接
 - 逐字稿：`nook-video-transcript` 保持上位规则，控制可念性、气口、提词器格式和视频主线。
 - humanizer 只做 AI 痕迹复检和局部重写建议，不反客为主。
 
+### nook-card
+
+负责把内容转成可交付的视觉卡片与 OpenDesign/Remotion 交付结构。它包含卡片规范、风格注册表、交互协议、模板和基础测试样例。
+
+### nook-tv-cover
+
+负责生成短视频、频道内容、电视感封面图的工作流。它包含封面流程、模型配置示例和风格参考资产。
+
 ### legacy: wechat-article-publishing
 
 负责发布前流程。它关心的是“这篇文章能否顺利进入公众号后台”。
@@ -335,6 +345,17 @@ nook-skills/
   README.md
   CONTRIBUTING.md
   skills/
+    nook-card/
+      SKILL.md
+      DESIGN.md
+      assets/
+      references/
+      tests/
+    nook-tv-cover/
+      SKILL.md
+      README.md
+      assets/
+      references/
     nook-wechat-writer/
       SKILL.md
       references/

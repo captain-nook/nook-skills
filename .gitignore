@@ -11,3 +11,7 @@ generated/
 *.jpg
 *.jpeg
 *.webp
+!skills/**/assets/**/*.png
+!skills/**/assets/**/*.jpg
+!skills/**/assets/**/*.jpeg
+!skills/**/assets/**/*.webp
